@@ -1,0 +1,28 @@
+{
+  "name": "Home Automation Application",
+  "version": "1.1.1",
+  "author": "Celal Çeken",
+  "license": "MIT",
+  "description": "Home Automation Application",
+  "main": "server.js",
+  "dependencies": {
+    "dateformat": "",
+    "express": "^4.15.2",
+    "monk": "",
+    "serialport": "",
+    "should": "",
+    "socket.io": ""
+  },
+  "devDependencies": {},
+  "scripts": {
+        "start": "sudo node Server1.js"
+	},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/celalceken/IoTApplications"
+  },
+ 
+  "bugs": {
+    "url": "https://github.com/celalceken/IoTApplications/issues"
+  }
+}
