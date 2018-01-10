@@ -1,0 +1,28 @@
+{
+  "name": "HomeAutomationWaspmote",
+  "version": "1.1.1",
+  "author": "Celal Çeken & Haithem Chaouch",
+  "license": "MIT",
+  "description": "Home Automation Application.",
+  "main": "server.js",
+  "dependencies": {
+    "dateformat": "",
+    "express": "^4.15.2",
+    "monk": "",
+    "serialport": "",
+    "should": "",
+    "socket.io": ""
+  },
+  "devDependencies": {},
+  "scripts": {
+        "start": "sudo node Server1.js"
+	},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NetworkProgrammingCourse/LectureExamples.git"
+  },
+ 
+  "bugs": {
+    "url": "https://github.com/NetworkProgrammingCourse/LectureExamples.git/issues"
+  }
+}
