@@ -1,30 +1,28 @@
 {
-  "name": "Home Automation Application",
-  "version": "1.1.1",
+  "name": "HomeAutomationApplication",
+  "version": "2.2",
   "author": "Celal Çeken",
   "license": "MIT",
-  "description": "Home Automation Application",  
+  "description": "Home Automation Application",
   "main": "Server.js",
   "dependencies": {
-    "serialport": "",
-    "dateformat": "",
-    "monk": "",
-    "express": "",
-    "should":"",
-    "socket.io":"",
-	"xbee-api":""
-
+    "dateformat": "^3.0.2",
+    "express": "^4.16.2",
+    "monk": "^6.0.5",
+    "serialport": "^4.0.7",
+    "should": "^13.2.0",
+    "socket.io": "^1.0.6",
+    "xbee-api": "^0.6.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+	"test": "echo \"Error: no test specified\" && exit 1",
     "start": "sudo node Server.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/celalceken/IoTApplications"
   },
-  
   "bugs": {
     "url": "https://github.com/celalceken/IoTApplications/issues"
   }

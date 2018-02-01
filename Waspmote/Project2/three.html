@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>threejs - basic</title>
+
+    <style>
+    	body{
+    		margin: 0;
+    		overflow: hidden;
+        }
+
+        canvas{
+            background: white;
+        }
+
+    </style>
+</head>
+<body>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <canvas id="myCanvas"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.min.js"></script>
+    <script>
+        
+        var socket = io();   
+        function getData (data,sensorName){
+        //console.log(data.sensor[sensorName]);
+        return data.sensor[sensorName];	
+        };
+        
+        
+       
+
+        //RENDERER
+        var renderer = new THREE.WebGLRenderer({canvas: document.getElementById('myCanvas'), antialias: true});
+        renderer.setClearColor(0xFFFFFF);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        //CAMERA
+        var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000);
+        // var camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, 0.1, 3000);
+
+        //SCENE
+        var scene = new THREE.Scene();
+
+        //LIGHTS
+        var light = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(light);
+        
+        var light1 = new THREE.PointLight(0xffffff, 0.5);
+        scene.add(light1);
+
+        //OBJECT
+        var geometry = new THREE.CubeGeometry(100, 100, 100);
+        var material = new THREE.MeshLambertMaterial({color: 0x1C1C1C});
+        var devre = new THREE.Mesh(geometry, material);
+        devre.position.set(0, 0, -1000);
+		devre.scale.x =3;
+		devre.scale.y =0.1;
+        devre.scale.z =2;
+        devre.rotation.x = 0;
+        devre.rotation.y = 0;
+        devre.rotation.z = 0;
+        
+        scene.add(devre);
+
+        //RENDER LOOP
+        requestAnimationFrame(render);
+        var x=0; var y=0; var z =0;
+        function render() {
+            renderer.render(scene, camera);
+            requestAnimationFrame(render);
+        }
+        socket.on('alldata', function(msg){
+            var dataArray = getData(msg,"ACC").split(';');
+            var x = parseFloat(dataArray[0])/1000;
+            var y = parseFloat(dataArray[1])/1000;
+            var z = parseFloat(dataArray[2])/1000-0.9;
+            devre.rotation.x =x;
+            devre.rotation.y =y;
+			devre.rotation.z =z;
+            render();
+        });
+        
+    </script>
+</body>
+</html>

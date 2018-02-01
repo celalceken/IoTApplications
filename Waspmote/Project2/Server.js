@@ -3,16 +3,21 @@
  * seri porttan okuyabilmek için su olarak çalıştırılmalı...
  *
  */
- var IntId ;
+var IntId ;
  
 var FramesforSend = [];
 var express = require('express');
 var app= express();
+var path=require('path');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+//let ionicio = require('socket.io').listen(3001);
 var dateFormat = require('dateformat');
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
 
 var xbeeAPI = new xbee_api.XBeeAPI({
 	api_mode: 2
@@ -22,13 +27,15 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
-
-
+app.get('/three', function(req, res){
+    res.sendFile(__dirname + '/three.html');
+});
 
 
 var SerialPort = require("serialport");
-var serialPort = new SerialPort("/dev/ttyUSB0", {
-//var serialPort = new SerialPort("COM3", {
+//var serialPort = new SerialPort("/dev/ttyUSB0", {
+	//Windows Sistemler için	
+	var serialPort = new SerialPort("COM3", {
     baudrate: 115200,
     parser: xbeeAPI.rawParser()}
 );
@@ -37,7 +44,7 @@ var should = require("should"); //  It keeps your test code clean, and your erro
 var monk = require("monk"); // a framework that makes accessing MongoDb really easy
 
 
-app.use(express.static('JS'));
+
 
 var db = monk('localhost/WaspMote');
 should.exists(db);
@@ -53,14 +60,12 @@ http.listen(8080, function(){
     console.log('listening  port 8080');
 });
 
-
-
 io.on('connection', function(socket)
 {
-    console.log('Bir kullanıcı bağlandı');
+    //console.log('Bir kullanıcı bağlandı');
     socket.on('disconnect', function()
     {
-        console.log('Kullanıcı ayrıldı...');
+      //console.log('Kullanıcı ayrıldı...');
     });
 	socket.on('digitalIO',function(SocketNo,State)
 	{
@@ -79,21 +84,21 @@ io.on('connection', function(socket)
 		}
 	});
 });
-
+var i = 0;
 // All frames parsed by the XBee will be emitted here
-xbeeAPI.on("frame_object", function (frame) {
-
-
-	
+xbeeAPI.on("frame_object", function (frame) {	
 	var frameDataStr=String(frame.data);
 	
 	 var frame=new Frame(String(frameDataStr));
 		io.emit('alldata', frame.FrameJson);
-		var data = frame.getData("ACC");
+		console.log(frame.FrameJson);
+		//io.emit('ionic', {text : frame.FrameJson , from: 'server', created: new Date() });
+		//io.emit('ionic', {text : frame.FrameJson });
+		//var data = frame.getData("ACC");
 		
 
         // Tüm istemcilere gönder
-        io.emit('acceleration', data);
+        //io.emit('acceleration', data);
 
        // MongoDB ye kaydet...
         collection.insert(frame.FrameJson, function(err, doc)
@@ -169,7 +174,7 @@ function Frame(frameStr){
 		
 		this.FrameJson.time= dateFormat(date.getTime(), "yyyy-mm-dd HH:MM:ss");
 		this.parseItems();
-		console.log(this.FrameJson);
+		//console.log(this.FrameJson);
 	}
 	
 }
