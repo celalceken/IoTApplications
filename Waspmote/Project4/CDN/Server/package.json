@@ -1,0 +1,21 @@
+{
+  "name": "home-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "dateformat": "",
+    "express": "^4.15.2",
+    "monk": "",
+    "serialport": "^4.0.7",
+    "should": "",
+    "socket.io": ""
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "moutasem",
+  "license": "ISC"
+}
