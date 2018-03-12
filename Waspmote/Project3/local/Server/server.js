@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 */
 
 
-var serialPort = new SerialPort("COM8", {
+var serialPort = new SerialPort("/dev/ttyUSB0", { // "COM3" for Windows
     baudrate: 115200,
     parser: require("serialport").parsers.readline("\n")
 });
