@@ -1,0 +1,21 @@
+{
+  "name": "MQTTApplication1",
+  "version": "",
+  "author": "Celal Çeken",
+  "license": "MIT",
+  "description": "sends random data to the cloud using MQTT",
+  "main": "Server.js",
+  "scripts": {
+    "start": "node Server.js"
+  },
+  "dependencies": {
+    "mqtt": "^2.18.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/celalceken/IoTApplications"
+  },
+  "bugs": {
+    "url": "https://github.com/celalceken/IoTApplications/issues"
+  }
+}
